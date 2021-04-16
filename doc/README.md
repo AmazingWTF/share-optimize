@@ -50,6 +50,8 @@
     <summary>指定明确宽高</summary>
     防止重绘
   </details>
+<!-- TODO: seo 描述 -->
++ SEO 
 
 + 使用 `requestAnimationFrame` 实现动画(兼容的情况下)
 
