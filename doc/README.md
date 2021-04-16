@@ -52,6 +52,7 @@
   </details>
 <!-- TODO: seo 描述 -->
 + SEO 
++ gzip
 
 + 使用 `requestAnimationFrame` 实现动画(兼容的情况下)
 
