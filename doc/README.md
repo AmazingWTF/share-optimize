@@ -67,10 +67,29 @@
   + SEO 针对爬虫优化
     <details>
       <summary>SPA vs SSR</summary>
-      SPA 开发成本    优于 SSR
-      SPA 的 SEO     差于 SSR
-      SPA 的 首屏渲染 差于 SSR
-      SSR 对服务端压力较大，配置麻烦
+      <table>
+        <tr>
+          <th>模式</th>
+          <th>开发成本</th>
+          <th>SEO</th>
+          <th>首屏渲染</th>
+          <th>服务端压力</th>
+        </tr>
+        <tr>
+          <td>SPA</td>
+          <td>较低</td>
+          <td>较差</td>
+          <td>较差</td>
+          <td>较低</td>
+        </tr>
+        <tr>
+          <td>SSR</td>
+          <td>较高</td>
+          <td>较好</td>
+          <td>较好</td>
+          <td>较高</td>
+        </tr>
+      </table>
     </details>
 
     <details>
@@ -96,7 +115,7 @@
 
     <details>
       <summary>strong em</summary>
-      strong 标签权重比较高，可用于强调重要内容
+      strong 标签权重比较高，可用于强调重要内容<br>
       权重等级： strong > em
     </details>
 
