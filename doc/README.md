@@ -60,6 +60,10 @@
       防止重绘
     </details>
 
+    <details>
+      <summary>使用webp格式图片，获取更小的体积</summary>
+    </details>
+
   + 使用 `requestAnimationFrame` 实现动画(兼容的情况下)
 
   + 使用 transform 和 opacity 属性更改来实现动画(配合 translate3D 开启硬件加速)
