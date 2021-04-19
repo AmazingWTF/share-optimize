@@ -62,8 +62,7 @@
 
   + 尽量使用canvas或者css实现动画，不用dom实现
 
-  <!-- TODO: 详细 -->
-  + 减少重绘、重排
+  + 减少[重绘、重排](./repaint-reflow.md)
 
   + SEO 针对爬虫优化
     <details>
