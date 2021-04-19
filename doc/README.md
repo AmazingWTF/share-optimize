@@ -33,6 +33,10 @@
 
   + 静态资源使用 CDN 加载
 
+  + 使用`webpack`等类似工具，进行代码分包，按需加载
+
+  + 事件绑定，使用事件委托
+
   + 减少http请求次数，将多个小文件合并为一个大文件
     <details>
       <summary>浏览器并发限制</summary>
@@ -63,6 +67,8 @@
   + 尽量使用canvas或者css实现动画，不用dom实现
 
   + 减少[重绘、重排](./repaint-reflow.md)
+
+  + 使用 `icon font` 替代小图标
 
   + SEO 针对爬虫优化
     <details>
@@ -128,6 +134,10 @@
       <summary>重要内容不要放到js中渲染</summary>
       display: none 的内容，会被爬虫忽略
     </details>
+
+  + 使用 `switch case` 代替 `if-else` (更直观，易拓展)
+
+  + 降低css选择器的层级: css选择器解析是`从左向右` [参考链接](https://juejin.cn/post/6844903512447401991)
 
   + 如果可以，使用 `PWA - 渐进式Web应用程序`
     <details>
