@@ -27,6 +27,7 @@
 + `SiteSpeed` 一款开源的，可以用于监控和检查网站性能的工具。可以通过 docker 镜像或 npm 方式来使用
 
 ## 优化事项
+
 + 代码层面(前端可以做)
 
   + 压缩静态资源(img js html css等)，使用webpack、gulp 等构建工具
