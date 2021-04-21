@@ -76,69 +76,71 @@
   + 使用 `icon font` 替代小图标
 
   + SEO 针对爬虫优化
-    <details>
-      <summary>SPA vs SSR</summary>
-      <table>
-        <tr>
-          <th>模式</th>
-          <th>开发成本</th>
-          <th>SEO</th>
-          <th>首屏渲染</th>
-          <th>服务端压力</th>
-        </tr>
-        <tr>
-          <td>SPA</td>
-          <td>较低</td>
-          <td>较差</td>
-          <td>较差</td>
-          <td>较低</td>
-        </tr>
-        <tr>
-          <td>SSR</td>
-          <td>较高</td>
-          <td>较好</td>
-          <td>较好</td>
-          <td>较高</td>
-        </tr>
-      </table>
-    </details>
+    <table>
+      <caption>SPA vs SSR</caption>
+      <tr>
+        <th>模式</th>
+        <th>开发成本</th>
+        <th>SEO</th>
+        <th>首屏渲染</th>
+        <th>服务端压力</th>
+      </tr>
+      <tr>
+        <td>SPA</td>
+        <td>较低</td>
+        <td>较差</td>
+        <td>较差</td>
+        <td>较低</td>
+      </tr>
+      <tr>
+        <td>SSR</td>
+        <td>较高</td>
+        <td>较好</td>
+        <td>较好</td>
+        <td>较高</td>
+      </tr>
+    </table>
 
-    <details>
-      <summary>meta</summary>
-      合理设计description keywords
-    </details>
+    + 如果可以的话，使用 `prerender-spa-plugin` 插件配合 `webpack` 将SPA页面转化成html
+      + [参考文章](https://juejin.cn/post/6844903687580549128)
+      + 原理：利用了 `Puppeteer` 的爬取页面的功能，将本地服务吐出的 HTLML 页面爬取存储，生成静态页面，优化SEO
+      + 注意：
+        + router 需要配成 history 模式
+        + router 不能有懒加载路由
 
-    <details>
-      <summary>title</summary>
-      强调重点信息，重要的关键词放前面，尽量不要重复
-    </details>
+    ```js
+      // webpack 配置
+      // code /Users/wenjie/Documents/self/lottie
+      const PrerenderSPAPlugin = require('prerender-spa-plugin')
+      ...
+      new PrerenderSPAPlugin({
+        staticDir: config.build.assetsRoot,
+        routes: [ '/', '/Contacts' ], // 需要预渲染的路由（视你的项目而定）
+        minify: {
+          collapseBooleanAttributes: true,
+          collapseWhitespace: true,
+          decodeEntities: true,
+          keepClosingSlash: true,
+          sortAttributes: true
+        }
+      })
+    ```
 
-    <details>
-      <summary>a</summary>
-      页内链接：加title属性说明
-      外部链接：加 rel="nofollow"，告诉爬虫不要爬，否则爬虫就不会回来了
-    </details>
+    + meta: 合理设计description keywords
 
-    <details>
-      <summary>H1</summary>
-      一个页面有且只能有一个，爬虫认为 <strong>H1标签最重要</strong>
-    </details>
+    + title: 强调重点信息，重要的关键词放前面，尽量不要重复
 
-    <details>
-      <summary>strong em</summary>
-      strong 标签权重比较高，可用于强调重要内容<br>
+    + a: 页内链接：加title属性说明<br>
+        外部链接：加 rel="nofollow"，告诉爬虫不要爬，否则爬虫就不会回来了
+
+    + H1: 一个页面有且只能有一个，爬虫认为 <strong>H1标签最重要</strong>
+
+    + strong em: strong 标签权重比较高，可用于强调重要内容<br>
       权重等级： strong > em
-    </details>
 
-    <details>
-      <summary>display: none</summary>
-      display: none 的内容，会被爬虫忽略
-    </details>
+    + display: none: display: none 的内容，会被爬虫忽略
 
-    <details>
-      <summary>重要内容不要放到js中渲染</summary>
-      display: none 的内容，会被爬虫忽略
-    </details>
+    + 重要内容不要放到js中渲染: display: none 的内容，会被爬虫忽略
 
   + 使用 `switch case` 代替 `if-else` (更直观，易拓展)
 
@@ -173,7 +175,7 @@
       + 强缓存
       + 协商缓存
 
-  + gzip
+  + gzip：运维开启gzip的前提下，前段可以使用 `CompressionWebpackPlugin` 将文件打包成 .gz 文件，这样的话就不用占用服务器资源去压缩，而是直接取同名的 .gz 文件
 
   + 使用 `http2` [参考地址](https://developers.google.com/web/fundamentals/performance/http2?hl=zh-cn)
   <details>
