@@ -2,6 +2,9 @@
 
 ## 性能检测工具
 
++ `Chrome Devtools` [参考文章](https://juejin.cn/post/6844903961472974855)
+  + [详解](./devtools.md)
+
 + `Lighthouse` Google Chrome推出的一个开源自动化工具，作为Chrome的扩展安装
 
   ![展示](./assets/lighthouse.png)
@@ -39,31 +42,15 @@
   + 事件绑定，使用事件委托
 
   + 减少http请求次数，将多个小文件合并为一个大文件
-    <details>
-      <summary>浏览器并发限制</summary>
-      不同浏览器针对<strong>统一域名下</strong>的并发请求数量有限制，如果超出的话，就会阻塞
-    </details>
+    + 浏览器并发限制：不同浏览器针对`统一域名下`的并发请求数量有限制，如果超出的话，就会阻塞
 
   + 将css放在页面顶部，js放在页面底部
 
   + 图片优化
-    <details>
-      <summary>合适大小</summary>
-      不同分辨率使用合适大小图片，防止加载过大图片浪费带宽
-    </details>
-
-    <details>
-      <summary>懒加载</summary>
-    </details>
-
-    <details>
-      <summary>指定明确宽高</summary>
-      防止重绘
-    </details>
-
-    <details>
-      <summary>使用webp格式图片，获取更小的体积</summary>
-    </details>
+    + 合适大小：不同分辨率使用合适大小图片，防止加载过大图片浪费带宽
+    + 懒加载
+    + 指定明确宽高：防止重排，防止CLS(累计布局偏移)
+    + 使用webp格式图片，获取更小的体积
 
   + 使用 `requestAnimationFrame` 实现动画(兼容的情况下)
 
@@ -126,50 +113,42 @@
       })
     ```
 
-    + meta: 合理设计description keywords
+    + `meta`: 合理设计description keywords
 
-    + title: 强调重点信息，重要的关键词放前面，尽量不要重复
+    + `title`: 强调重点信息，重要的关键词放前面，尽量不要重复
 
-    + a: 页内链接：加title属性说明<br>
-        外部链接：加 rel="nofollow"，告诉爬虫不要爬，否则爬虫就不会回来了
+    + `a`: 防止爬虫跳出当前网站
+      + 页内链接：加title属性说明
+      + 外部链接：加 rel="nofollow"，告诉爬虫不要爬，否则爬虫就不会回来了
 
-    + H1: 一个页面有且只能有一个，爬虫认为 <strong>H1标签最重要</strong>
+    + `H1`: 一个页面有且只能有一个，爬虫认为 `H1标签最重要`
 
-    + strong em: strong 标签权重比较高，可用于强调重要内容<br>
-      权重等级： strong > em
+    + `strong em`: 表示强调
+      + strong 标签权重比较高，可用于强调重要内容
+      + 权重等级： strong > em
 
-    + display: none: display: none 的内容，会被爬虫忽略
+    + `display: none`: display: none 的内容，会被爬虫忽略
 
-    + 重要内容不要放到js中渲染: display: none 的内容，会被爬虫忽略
+    + 重要内容不要放到js中渲染: 爬虫只会爬取html内容
 
   + 使用 `switch case` 代替 `if-else` (更直观，易拓展)
 
   + 降低css选择器的层级: css选择器解析是`从左向右` [参考链接](https://juejin.cn/post/6844903512447401991)
 
   + 如果可以，使用 `PWA - 渐进式Web应用程序`
-    <details>
-      <summary>可以添加至主屏幕(类似app)</summary>
-      <summary>离线缓存功能，离线情况下依然可以使用部分功能</summary>
-      <summary>消息推送</summary>
-    </details>
+    + 可以添加至主屏幕(类似app)
+    + 离线缓存功能，离线情况下依然可以使用部分功能
+    + 消息推送
 
 + 运维 or 后端
   + 域名分片 [哔哩哔哩](https://t.bilibili.com/?spm_id_from=333.851.b_696e7465726e6174696f6e616c486561646572.30)
-    <details>
-      解决浏览器并发请求限制问题
-    </details>
+    + 解决浏览器并发请求限制问题
+    + 分离静态资源和请求接口，让请求静态资源的时候不携带无关的 `cookie` 等资源，增加请求数据大小
 
   + 尽可能使用缓存
     + 缓存处理
-      <details>
-        <summary>SPA项目的index.html</summary>
-        协商缓存 > 彻底不缓存
-      </details>
-
-      <details>
-        <summary>其他静态资源</summary>
-        使用强缓存，设置缓存时间比较长
-      </details>
+      + SPA项目的index.html：协商缓存 > 彻底不缓存
+      + 其他静态资源：使用webpack的文件hash值，配合使用强缓存，设置较长缓存时间
 
     + [缓存分类](./cache.md)
       + 强缓存
@@ -178,39 +157,26 @@
   + gzip：运维开启gzip的前提下，前段可以使用 `CompressionWebpackPlugin` 将文件打包成 .gz 文件，这样的话就不用占用服务器资源去压缩，而是直接取同名的 .gz 文件
 
   + 使用 `http2` [参考地址](https://developers.google.com/web/fundamentals/performance/http2?hl=zh-cn)
-  <details>
-    <summary>优势</summary>
+    + 完全兼容http1
+      + http2是对http1的拓展，而非替代，提供的功能不变，HTTP 方法、状态代码、URI 和标头字段等这些核心概念也不变(无感切换)
 
-    <details>
-      <summary>完全兼容http1</summary>
-      http2是对http1的拓展，而非替代，提供的功能不变，HTTP 方法、状态代码、URI 和标头字段等这些核心概念也不变(无感切换)
-    </details>
+    + 二进制分帧
+      + http1使用`换行符`作为分隔符，而`http2`则将所有传输的信息分割为更小的消息和帧，并采用二进制编码，解析速度更快
 
-    <details>
-      <summary>二进制分帧</summary>
-      http1使用`换行符`作为分隔符，而`http2`则将所有传输的信息分割为更小的消息和帧，并采用二进制编码，解析速度更快
-    </details>
+    + 多路复用
+      + http1中，多个并行请求使用多个TCP连接，并且每个连接每次只交付一个响应(响应排队)
+      + http2中：同个域名的请求，只需要占用一个TCP连接，C和S将http消息分解为互不依赖的帧，然后交错发送，再在另一端重新组装起来
+      + 可以减少使用针对http1的优化手段，e.g. `域名分片` `精灵图` 等 (精灵图还是需要的)
 
-    <details>
-      <summary>多路复用</summary>
-      http1中，多个并行请求使用多个TCP连接，并且每个连接每次只交付一个响应(响应排队)
-      http2中：同个域名的请求，只需要占用一个TCP连接，C和S将http消息分解为互不依赖的帧，然后交错发送，再在另一端重新组装起来
-      可以减少使用针对http1的优化手段，e.g. `域名分片` `精灵图` 等 (精灵图还是需要的)
-    </details>
+    + 服务器推送
 
-    <details>
-      <summary>服务器推送</summary>
-    </details>
+    + 头部压缩
+      + 每个http请求都会携带一个header，携带 `cookie` 等字段
+      + http1中：元数据始终以文本形式携带，增加开销
+      + http2中：通过编码+索引方式，做到类似diff算法的处理，使得相同的header字段不传输(使用索引替代)，只传输变化的
 
-    <details>
-      <summary>头部压缩</summary>
-      每个http请求都会携带一个header，
-      http1中：元数据始终以文本形式携带，增加开销
-      http2中：通过编码+索引方式，做到类似diff算法的处理，使得相同的header字段不传输(使用索引替代)，只传输变化的
-    </details>
-
-    <details>流量控制(没理解)</details>
+    + 流量控制(没理解)
 
     ![图例](./assets/header.png)
 
-  </details>
+  
